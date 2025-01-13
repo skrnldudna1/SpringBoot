@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Include header -->
+<div th:insert="~{layouts/header :: header}"></div>
+
+  <!-- Content -->
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Title</th>
+    <th scope="col">Content</th>
+    <th scope="col">Handle</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- 반복문으로 데이터 출력 -->
+  <tr th:each="article, stat : ${articles}">
+    <th scope="row" th:text="${stat.index + 1}"></th>  <!-- 순번 출력 -->
+    <td th:text="${article.title}">제목</td>           <!-- 제목 출력 -->
+    <td th:text="${article.content}">내용</td>         <!-- 내용 출력 -->
+    <td>
+      <button th:onclick="'deleteArticle(' + ${article.id} + ')'">삭제</button> <!-- 삭제 버튼 -->
+    </td>
+  </tr>
+
+  <!-- 가짜 데이터 또는 속성 추가 -->
+  <td th:text="${article.id}"></td>
+  <td th:text="${article.title}"></td>
+  <td th:text="${article.content}"></td>
+  </tbody>
+</table>
+
+<a th:href="@{/articles/{id}/edit(id=${article.id})}" class="btn btn-primary">Edit</a>
+<a th:href="@{/articles/{id}/delete(id=${article.id})}" class="btn btn-danger">Delete</a>
+<a href="/articles">Go to Article List</a>
+
+
+<!-- Include footer -->
+<div th:insert="~{layouts/footer :: footer}"></div>
+
+</body>
+</html>
